@@ -4,6 +4,7 @@
   "description": "application to manage pizza orders",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "./spec/APIspec.js"
   },
   "repository": {
