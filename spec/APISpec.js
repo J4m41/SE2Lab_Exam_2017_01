@@ -79,3 +79,52 @@ describe("Test /searchPizza", function() {
 
 });
 
+//Test for /deletePizza
+describe("Test /deletePizza", function() {
+    var data = {id: '1'};
+    
+    it("to return status code 200", function(done) {
+        client.post(base_url + "deletePizza/", data, function(err, res, body) {
+            expect(body).toEqual(
+                {
+                    ID: 1,
+                    name: "Margherita",
+                    price: 9.5,
+                    ingredientList : ["pomodoro","mozzarella", "basilico", "olio"]
+                }
+            );
+            done();
+        });
+    });
+    
+    var data1 = {name: "Margherita"};
+    
+    it("to return status code 200", function(done) {
+        client.post(base_url + "deletePizza/", data, function(err, res, body) {
+            expect(body).toEqual({
+                ID: 1,
+                name: "Margherita",
+                price: 9.5,
+                ingredientList : ["pomodoro","mozzarella", "basilico", "olio"]
+            });
+            done();
+        });
+    });
+    
+    var data2 = {ID: '10'};
+    it("to return status code 404", function(done) {
+        client.post(base_url + "deletePizza/", data2, function(err, res, body) {
+            expect(res.statusCode).toBe(404);
+            done();
+        });
+    });
+    
+    var data3 = {name: '1'};
+    it("to return status code 406", function(done) {
+        client.post(base_url + "deletePizza/", data3, function(err, res, body) {
+            expect(res.statusCode.toBe(406));
+            done();
+        });
+    });
+    
+});

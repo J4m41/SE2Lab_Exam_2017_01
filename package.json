@@ -1,0 +1,25 @@
+{
+  "name": "se2lab_exam_2017_01",
+  "version": "1.0.0",
+  "description": "application to manage pizza orders",
+  "main": "index.js",
+  "scripts": {
+    "test": "./spec/APIspec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/J4m41/SE2Lab_Exam_2017_01.git"
+  },
+  "author": "Gianmaria Moro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/J4m41/SE2Lab_Exam_2017_01/issues"
+  },
+  "homepage": "https://github.com/J4m41/SE2Lab_Exam_2017_01#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "util": "^0.10.3"
+  }
+}

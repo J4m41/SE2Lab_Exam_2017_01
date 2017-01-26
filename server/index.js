@@ -263,6 +263,101 @@ app.post('/addPizza', function(request, response)
 });
 
 //INSERIRE CODICE QUI SOTTO
+app.post('/updatePizzasByPrice', function(request, response) 
+{
+	var headers = {};
+	headers["Access-Control-Allow-Origin"] = "*";
+	headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+	headers["Access-Control-Allow-Credentials"] = false;
+	headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+	headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+	headers["Content-Type"] = "application/json";
+
+	var price;
+	var increment;
+    var lower;
+	
+	//check body and parameters
+	if ( typeof request.body !== 'undefined' && request.body)
+	{
+		if ( typeof request.body.price !== 'undefined' && request.body.price)
+            {
+			 price = request.body.price;
+            }
+		else 
+			price = "not defined";
+		
+		if ( typeof request.body.increment !== 'undefined' && request.body.increment)
+            {
+			 increment = request.body.increment;
+            }
+		else 
+			increment = "not defined";
+        
+        if ( typeof request.body.lower !== 'undefined' && request.body.lower)
+            {
+			 lower = request.body.lower;
+            }
+		else 
+			lower = "not defined";
+        
+	}
+	else
+	{
+		price = "body undefined";
+		increment = "body undefined";
+        lower = "body undefined";
+	}
+    
+	var pizzas = [];
+	
+    if (price !="not defined" && increment !="not defined" && lower !="not defined" && price !="body undefined")
+	{
+        price = parseFloat(price);
+        increment = parseFloat(increment);
+        if (lower == "true")
+            lower = true;
+        else
+            lower = false;
+        
+		pizzas = pizzaManager.updatePizzasByPrice(price, increment, lower);
+		
+        if (pizzas != null)
+		{
+			response.writeHead(200, headers);
+			response.end(JSON.stringify(pizzas[0]));
+		}
+		else
+		{
+			response.writeHead(404, headers);
+			response.end(JSON.stringify());
+		}
+
+	}
+	else if (pizzaName!="not defined" && pizzaName!="body undefined")
+	{	
+		//aceptable input
+		//delete a pizza using ID
+		pizza = pizzaManager.deletePizzaName(pizzaName);
+		if (pizza!= null)
+		{
+			response.writeHead(200, headers);
+			response.end(JSON.stringify(pizza));
+		}
+		else
+		{
+			response.writeHead(404, headers);
+			response.end(JSON.stringify());
+		}
+	}
+    else    
+		{
+        	//unaceptable input
+        	response.writeHead(406, headers);
+			response.end(JSON.stringify("1"));
+		}   
+
+});
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

@@ -28,7 +28,12 @@ paths:
         - name: ID
           in: formData
           description: ID of the pizza
-          required: true
+          required: false
+          type: string
+        - name: name
+          in: formData
+          description: name of the pizza
+          required: false
           type: string
       responses:
         200:
